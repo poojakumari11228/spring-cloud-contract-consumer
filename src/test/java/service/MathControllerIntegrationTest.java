@@ -26,7 +26,7 @@ public class MathControllerIntegrationTest {
 
 	    @Test
 	    public void given_WhenPassEvenNumberInQueryParam_ThenReturnEven() throws Exception {
-	        mockMvc.perform(MockMvcRequestBuilders.get("/calculate?number=2")
+	        mockMvc.perform(MockMvcRequestBuilders.get("/calculate?number1=2&number2=2")
 	          .contentType(MediaType.APPLICATION_JSON))
 	          .andExpect(status().isOk())
 	          .andExpect(content().string("Even"));
@@ -34,9 +34,25 @@ public class MathControllerIntegrationTest {
 
 	    @Test
 	    public void given_WhenPassOddNumberInQueryParam_ThenReturnOdd() throws Exception {
-	        mockMvc.perform(MockMvcRequestBuilders.get("/calculate?number=1")
+	        mockMvc.perform(MockMvcRequestBuilders.get("/calculate?number1=1&number2=1")
 	          .contentType(MediaType.APPLICATION_JSON))
 	          .andExpect(status().isOk())
 	          .andExpect(content().string("Odd"));
 	    }
+
+		@Test
+		public void given_WhenPassNumberInQueryParam_ThenReturnDoubleOfNumber() throws Exception {
+			mockMvc.perform(MockMvcRequestBuilders.get("/double?number=2")
+					.contentType(MediaType.APPLICATION_JSON))
+					.andExpect(status().isOk())
+					.andExpect(content().string("4"));
+		}
+
+	@Test
+	public void given_WhenPassValue1AndValue2InQueryParam_ThenReturnSumOfBothValues() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/add?value1=2&value2=2")
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().string("4"));
+	}
 }

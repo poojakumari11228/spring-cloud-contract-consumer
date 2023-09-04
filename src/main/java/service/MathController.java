@@ -17,16 +17,34 @@ public class MathController {
     private RestTemplate restTemplate;
  
     @GetMapping("/calculate")
-    public String checkOddAndEven(@RequestParam("number") Integer number) {
+    public String checkOddAndEven(@RequestParam("number1") Integer number1, @RequestParam("number2") Integer number2) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Content-Type", "application/json");
  
         ResponseEntity<String> responseEntity = restTemplate.exchange(
-          "http://localhost:8090/validate?number=" + number,
+          "http://localhost:8090/validate?number1=" + number1+"&number2=" + number2,
           HttpMethod.GET,
           new HttpEntity<>(httpHeaders),
           String.class);
  
         return responseEntity.getBody();
     }
+
+    @GetMapping("/double")
+    public String doubleOfNumber(@RequestParam("number") Integer number) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Content-Type", "application/json");
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(
+                "http://localhost:8090/double?number=" + number,
+                HttpMethod.GET,
+                new HttpEntity<>(httpHeaders),
+                String.class);
+
+        return responseEntity.getBody();
+    }
+
+
+
+
 }
